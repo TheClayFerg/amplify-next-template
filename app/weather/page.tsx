@@ -1,5 +1,7 @@
 ﻿"use client";
 import { useEffect, useState } from "react";
+import NavBar from "../../components/NavBar";
+import WeatherCard from "../../components/WeatherCard";
 
 export default function WeatherPage() {
     const [weather, setWeather] = useState<any>(null);
@@ -27,19 +29,17 @@ export default function WeatherPage() {
     return (
         <div>
             <main className="p-10 text-center">
-                <h1 className="text-4xl font-bold mb-6 text-blue-600">Pickleball Weather Info. See the weather at the courts!</h1>
+                <h1 className="text-4xl font-bold mb-6 text-blue-600">Weather Info</h1>
 
                 {error && <p className="text-red-500">{error}</p>}
 
-                {weather ? (
-                    <div className="bg-gray-100 p-6 rounded-xl shadow-lg inline-block">
-                        <h2 className="text-2xl font-semibold mb-2">{weather.location.name}</h2>
-                        <p className="text-lg">Temperature: {weather.current.temperature}°C</p>
-                        <p className="text-lg">Condition: {weather.current.weather_descriptions[0]}</p>
-                        <p className="text-lg">Humidity: {weather.current.humidity}%</p>
-                    </div>
-                ) : (
-                    !error && <p>Loading weather data...</p>
+                {weather && (
+                    <WeatherCard
+                        location={weather.location.name}
+                        temperature={weather.current.temperature}
+                        condition={weather.current.weather_descriptions[0]}
+                        humidity={weather.current.humidity}
+                    />
                 )}
             </main>
         </div>
